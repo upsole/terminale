@@ -1,0 +1,69 @@
+
+set -ga terminal-overrides ",screen-256color*:Tc"
+set-option -g default-terminal "screen-256color"
+# set -s escape-time 0
+
+set-window-option -g mode-keys vi
+bind -T copy-mode-vi v send-keys -X begin-selection
+bind -T copy-mode-vi y send-keys -X copy-pipe-and-cancel 'xclip -in -selection clipboard'
+
+unbind C-b
+unbind C-x
+set -g prefix C-x
+set -g repeat-time 0
+
+bind -r r source-file ~/.tmux.conf
+
+bind -r k select-pane -U
+bind -r j select-pane -D
+bind -r h select-pane -L
+bind -r l select-pane -R
+bind -r C-k select-pane -U
+bind -r C-j select-pane -D
+bind -r C-h select-pane -L
+bind -r C-l select-pane -R
+unbind d
+bind C-x killp
+bind C-d killw
+
+bind -r Up		resize-pane -U 1
+bind -r Down	resize-pane -D 1
+bind -r Left	resize-pane -L 1
+bind -r Right	resize-pane -R 1
+
+bind -r C-Up	resize-pane -U 1
+bind -r C-Down	resize-pane -D 1
+bind -r C-Left	resize-pane -L 1
+bind -r C-Right	resize-pane -R 1
+
+bind Enter new-window -c "#{pane_current_path}"
+bind C-Enter new-window 
+unbind x
+bind x new-window
+bind-key c command-prompt -p "window name:" "new-window; rename-window '%%'"
+bind-key C-c command-prompt -p "window name:" "new-window; rename-window '%%'"
+bind C-w kill-session
+
+unbind |
+bind | split-window -h -c "#{pane_current_path}"
+unbind -
+bind - split-window -v -c "#{pane_current_path}"
+bind _ split-window -v -c "#{pane_current_path}"
+
+bind -r b last-window
+bind -r C-n next-window
+bind -r C-p last-window
+
+set -g pane-border-style "fg=#171717"
+set -g pane-active-border-style "fg=#171714"
+
+# set -g status-style "fg=#7fa677,bold" 
+set -g status-style "fg=#948584,bold"
+set -g status-bg default
+set -g status-right "λ %H:%M"
+set -g status-position top
+set -g status-interval 1
+set -g status-left ""
+
+# Attach to 'main' session if exists
+# tmux new-session -A -s main
