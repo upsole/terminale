@@ -1,7 +1,5 @@
-
-set -ga terminal-overrides ",screen-256color*:Tc"
-set-option -g default-terminal "screen-256color"
-# set -s escape-time 0
+set -g default-terminal "tmux-256color"
+# set -ag terminal-overrides ",xterm-256color:RGB"
 
 set-window-option -g mode-keys vi
 bind -T copy-mode-vi v send-keys -X begin-selection
@@ -22,8 +20,14 @@ bind -r C-k select-pane -U
 bind -r C-j select-pane -D
 bind -r C-h select-pane -L
 bind -r C-l select-pane -R
+
+unbind x
+bind C-x split-window -h -c "#{pane_current_path}"
+unbind b
+bind X killp
+bind BSpace killp
+
 unbind d
-bind C-x killp
 bind C-d killw
 
 bind -r Up		resize-pane -U 1
@@ -38,8 +42,8 @@ bind -r C-Right	resize-pane -R 1
 
 bind Enter new-window -c "#{pane_current_path}"
 bind C-Enter new-window 
-unbind x
-bind x new-window
+
+
 bind-key c command-prompt -p "window name:" "new-window; rename-window '%%'"
 bind-key C-c command-prompt -p "window name:" "new-window; rename-window '%%'"
 bind C-w kill-session

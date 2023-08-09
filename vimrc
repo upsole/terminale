@@ -9,7 +9,7 @@ set clipboard=unnamedplus
 filetype plugin on
 syntax on
 set scrolloff=15
-set background=dark
+
 set incsearch
 set hlsearch
 set wildmenu
@@ -18,6 +18,7 @@ set mouse=nc
 set completeopt=longest,menu
 "clear after leaving vim
 au VimLeave * :!clear 
+set background=dark
 
 "Real Tabs
 set autoindent
@@ -67,7 +68,23 @@ hi link CursorColumn CursorLine
 hi LineNR cterm=none ctermfg=238
 hi CursorLineNR cterm=bold ctermfg=white ctermbg=237
 hi ColorColumn ctermbg=white cterm=none ctermfg=black
-hi todo ctermfg=yellow ctermbg=16
+" Theme
+hi Comment ctermfg=Gray
+hi Todo cterm=bold ctermbg=NONE ctermfg=204
+hi cConstant cterm=bold ctermfg=224
+hi PreProc cterm=bold ctermfg=222
+hi Type cterm=bold ctermfg=223
+hi Statement cterm=bold ctermfg=222
+hi clear Matchparen
+hi Matchparen cterm=bold ctermfg=204
+hi Macro cterm=bold ctermfg=224
+hi Identifier ctermfg=224
+
+
+if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 
 " Autocmds for source code files
 au bufnewfile,bufRead *.h set ft=c
@@ -79,8 +96,8 @@ augroup CODE
 	autocmd FileType c,cpp,python,sh,go,make set laststatus=2
 	autocmd FileType c,cpp,python,sh,go,make set nu "Line Column
 	autocmd	FileType c,cpp,python,sh,go,make set cursorline
-	autocmd FIleType c,cpp,python,sh,go,make set relativenumber 
-	autocmd FIleType c,cpp,python,sh,go,make set numberwidth=2
+	autocmd FileType c,cpp,python,sh,go,make set relativenumber 
+	autocmd FileType c,cpp,python,sh,go,make set numberwidth=2
 	autocmd FileType c,cpp,python,sh,go,make set nowrap
 	autocmd FileType c,cpp,python,sh,go,make set ruler
 	autocmd FileType c,cpp,python,sh,go,make inoremap ' ''<ESC>i
@@ -92,6 +109,7 @@ call plug#begin()
 	Plug 'tpope/vim-commentary'	
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
+	" Plug 'kxzk/skull-vim'
 call plug#end()
 
 "	File Explorer
