@@ -42,6 +42,9 @@ nnoremap <C-t> :vert term<CR>
 nnoremap <leader>nv :e $HOME/.vimrc<CR>
 nnoremap <C-b> :tselect<CR>
 nnoremap <C-p> :pop<CR>
+nnoremap <C-x> <Nop>
+inoremap <C-x> <Nop>
+vnoremap <C-x> <Nop>
 
 " 	search buffers
 "nnoremap <leader>b :b 
@@ -80,7 +83,6 @@ hi Matchparen cterm=bold ctermfg=204
 hi Macro cterm=bold ctermfg=224
 hi Identifier ctermfg=224
 
-
 if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -92,15 +94,15 @@ au bufnewfile,bufRead *.pyx set ft=python
 au bufnewfile,bufRead keg set ft=yaml
 augroup CODE
 	autocmd!
-	autocmd FileType c,cpp,python,sh,go,make set colorcolumn=80
-	autocmd FileType c,cpp,python,sh,go,make set laststatus=2
-	autocmd FileType c,cpp,python,sh,go,make set nu "Line Column
-	autocmd	FileType c,cpp,python,sh,go,make set cursorline
-	autocmd FileType c,cpp,python,sh,go,make set relativenumber 
-	autocmd FileType c,cpp,python,sh,go,make set numberwidth=2
-	autocmd FileType c,cpp,python,sh,go,make set nowrap
-	autocmd FileType c,cpp,python,sh,go,make set ruler
-	autocmd FileType c,cpp,python,sh,go,make inoremap ' ''<ESC>i
+	autocmd FileType c,cpp,python,sh,go,clojure set colorcolumn=80
+	autocmd FileType c,cpp,python,sh,go,clojure set laststatus=2
+	autocmd FileType c,cpp,python,sh,go,clojure set nu "Line Column
+	autocmd	FileType c,cpp,python,sh,go,clojure set cursorline
+	autocmd FileType c,cpp,python,sh,go,clojure set relativenumber 
+	autocmd FileType c,cpp,python,sh,go,clojure set numberwidth=2
+	autocmd FileType c,cpp,python,sh,go,clojure set nowrap
+	autocmd FileType c,cpp,python,sh,go,clojure set ruler
+	autocmd FileType c,cpp,python,sh,go,clojure inoremap ' ''<ESC>i
 augroup END
 
 "PLUGIN
@@ -109,7 +111,7 @@ call plug#begin()
 	Plug 'tpope/vim-commentary'	
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
-	" Plug 'kxzk/skull-vim'
+	Plug 'tpope/vim-fireplace'
 call plug#end()
 
 "	File Explorer
