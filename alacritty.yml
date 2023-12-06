@@ -14,19 +14,26 @@ cursor:
 live_config_reload: true
 
 font:
-  size: 12
+  size: 14
   normal:
-    family: SauceCodePro Nerd Font Mono
+    family: Source Code Pro
     style: Regular
   bold:
-    family: SauceCodePro Nerd Font Mono 
+    family: Source Code Pro
     style: Bold
   italic:
-    family: SauceCodePro Nerd Font Mono  
+    family: Source Code Pro
     style: Bold
   bold_italic:
-    family: SauceCodePro Nerd Font Mono 
+    family: Source Code Pro
     style: Bold
 #https://github.com/alacritty/alacritty-theme
 import:
   - ~/.config/alacritty/themes/themes/gruvbox_material_medium_dark.yaml
+
+shell:
+  program: /bin/bash
+  args:
+    - -l
+    - -c
+    - "tmux attach || tmux"

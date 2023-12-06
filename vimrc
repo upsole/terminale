@@ -8,7 +8,7 @@ set clipboard=unnamedplus
 "Display
 filetype plugin on
 syntax on
-set scrolloff=15
+set scrolloff=10
 
 set incsearch
 set hlsearch
@@ -40,17 +40,12 @@ nnoremap <C-d> :close<CR>
 nnoremap <C-q> :q<CR>
 nnoremap <C-t> :vert term<CR>
 nnoremap <leader>nv :e $HOME/.vimrc<CR>
-nnoremap <C-b> :tselect<CR>
-nnoremap <C-p> :pop<CR>
 nnoremap <C-x> <Nop>
 inoremap <C-x> <Nop>
 vnoremap <C-x> <Nop>
 
-" 	search buffers
-"nnoremap <leader>b :b 
-"	search dirs // 
-"set path=** 
-"nnoremap <leader>ff :find 
+nnoremap <C-b> :call JumpToTabUnderCursor()<CR>
+nnoremap <C-p> :call JumpToTabUnderCursorSplit()<CR>
 
 "	WindowNav
 set splitbelow
@@ -70,7 +65,6 @@ hi clear CursorColumn
 hi link CursorColumn CursorLine 
 hi LineNR cterm=none ctermfg=238
 hi CursorLineNR cterm=bold ctermfg=white ctermbg=237
-hi ColorColumn ctermbg=white cterm=none ctermfg=black
 " Theme
 hi Comment ctermfg=Gray
 hi Todo cterm=bold ctermbg=NONE ctermfg=204
@@ -82,6 +76,8 @@ hi clear Matchparen
 hi Matchparen cterm=bold ctermfg=204
 hi Macro cterm=bold ctermfg=224
 hi Identifier ctermfg=224
+hi Error ctermbg=NONE
+
 
 if !has('gui_running') && &term =~ '^\%(screen\|tmux\)'
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -94,15 +90,15 @@ au bufnewfile,bufRead *.pyx set ft=python
 au bufnewfile,bufRead keg set ft=yaml
 augroup CODE
 	autocmd!
-	autocmd FileType c,cpp,python,sh,go,clojure set colorcolumn=80
-	autocmd FileType c,cpp,python,sh,go,clojure set laststatus=2
-	autocmd FileType c,cpp,python,sh,go,clojure set nu "Line Column
-	autocmd	FileType c,cpp,python,sh,go,clojure set cursorline
-	autocmd FileType c,cpp,python,sh,go,clojure set relativenumber 
-	autocmd FileType c,cpp,python,sh,go,clojure set numberwidth=2
-	autocmd FileType c,cpp,python,sh,go,clojure set nowrap
-	autocmd FileType c,cpp,python,sh,go,clojure set ruler
-	autocmd FileType c,cpp,python,sh,go,clojure inoremap ' ''<ESC>i
+	autocmd FileType c,cpp,python,sh,go,zig,html set laststatus=2
+	autocmd FileType c,cpp,python,sh,go,zig,html set nu "Line Column
+	autocmd	FileType c,cpp,python,sh,go,zig,html set cursorline
+	autocmd FileType c,cpp,python,sh,go,zig,html set relativenumber 
+	autocmd FileType c,cpp,python,sh,go,zig,html set numberwidth=2
+	autocmd FileType c,cpp,python,sh,go,zig,html set nowrap
+	autocmd FileType c,cpp,python,sh,go,zig,html set ruler
+	autocmd FileType c,cpp,python,sh,go,zig,html inoremap ' ''<ESC>i
+	autocmd FileType html,css EmmetInstall
 augroup END
 
 "PLUGIN
@@ -111,8 +107,14 @@ call plug#begin()
 	Plug 'tpope/vim-commentary'	
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 	Plug 'junegunn/fzf.vim'
-	Plug 'tpope/vim-fireplace'
+	Plug '42Paris/42header'
+	" Plug 'tpope/vim-fireplace'
+	" Plug 'mattn/emmet-vim'
 call plug#end()
+let g:user_emmet_install_global = 0
+let g:user_emmet_leader_key = '<C-k>'
+let g:user42 = 'psoler-u'
+let g:mail42 = 'psoler-u@student.42madrid.com'
 
 "	File Explorer
 nnoremap <leader>e :vsplit<CR> :edit .<CR>
@@ -122,15 +124,16 @@ let g:netrw_altv=1
 let g:netrw_liststyle=3 " tree
 let g:netrw_list_hide=netrw_gitignore#Hide()
 "
-"FZF: set $FZF_DEFAULT_COMMAND=fd --type f to ignore .git
+"FZF: set $FZF_DEFAULT_COMMAND=ag -g "" to ignore .git
 nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fg :Rg<CR>
+nnoremap <leader>fg :Ag<CR>
 nnoremap <leader>fm :Marks<CR>
+nnoremap <leader>ft :Tags<CR>
 
 " Config vim local to project
-if filereadable(".project_vimrc") 
-	so .project_vimrc
+if filereadable(".project.vimrc") 
+	so .project.vimrc
 endif
 
 ""Syntax Expansion Example
@@ -159,3 +162,15 @@ function! BufferPrevSkipTerminal()
 		bp!
 	endwhile
 endfunction
+
+function! JumpToTabUnderCursor()
+	let word = expand('<cword>')
+	execute 'tag ' . word
+endfunction
+
+function! JumpToTabUnderCursorSplit()
+	let word = expand('<cword>')
+	execute 'vsp'
+	execute 'tag ' . word
+endfunction
+
