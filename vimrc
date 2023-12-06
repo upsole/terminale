@@ -64,6 +64,8 @@ hi CursorLine cterm=none ctermbg=237
 hi clear CursorColumn
 hi link CursorColumn CursorLine 
 hi LineNR cterm=none ctermfg=238
+hi FoldColumn cterm=none ctermfg=194 ctermbg=237 
+hi Folded cterm=none ctermfg=194 ctermbg=237
 hi CursorLineNR cterm=bold ctermfg=white ctermbg=237
 " Theme
 hi Comment ctermfg=Gray
@@ -90,14 +92,15 @@ au bufnewfile,bufRead *.pyx set ft=python
 au bufnewfile,bufRead keg set ft=yaml
 augroup CODE
 	autocmd!
-	autocmd FileType c,cpp,python,sh,go,zig,html set laststatus=2
-	autocmd FileType c,cpp,python,sh,go,zig,html set nu "Line Column
-	autocmd	FileType c,cpp,python,sh,go,zig,html set cursorline
-	autocmd FileType c,cpp,python,sh,go,zig,html set relativenumber 
-	autocmd FileType c,cpp,python,sh,go,zig,html set numberwidth=2
-	autocmd FileType c,cpp,python,sh,go,zig,html set nowrap
-	autocmd FileType c,cpp,python,sh,go,zig,html set ruler
-	autocmd FileType c,cpp,python,sh,go,zig,html inoremap ' ''<ESC>i
+	autocmd FileType c,cpp,python,sh,gohtml set laststatus=2
+	autocmd FileType c,cpp,python,sh,gohtml set nu "Line Column
+	autocmd FileType c,cpp,python,sh,gohtml set foldcolumn=1 "Line Column
+	autocmd	FileType c,cpp,python,sh,gohtml set cursorline
+	autocmd FileType c,cpp,python,sh,gohtml set relativenumber 
+	autocmd FileType c,cpp,python,sh,gohtml set numberwidth=2
+	autocmd FileType c,cpp,python,sh,gohtml set nowrap
+	autocmd FileType c,cpp,python,sh,gohtml set ruler
+	autocmd FileType c,cpp,python,sh,gohtml inoremap ' ''<ESC>i
 	autocmd FileType html,css EmmetInstall
 augroup END
 
@@ -173,4 +176,3 @@ function! JumpToTabUnderCursorSplit()
 	execute 'vsp'
 	execute 'tag ' . word
 endfunction
-
