@@ -92,16 +92,18 @@ au bufnewfile,bufRead *.pyx set ft=python
 au bufnewfile,bufRead keg set ft=yaml
 augroup CODE
 	autocmd!
-	autocmd FileType c,cpp,python,sh,gohtml set laststatus=2
-	autocmd FileType c,cpp,python,sh,gohtml set nu "Line Column
-	autocmd FileType c,cpp,python,sh,gohtml set foldcolumn=1 "Line Column
-	autocmd	FileType c,cpp,python,sh,gohtml set cursorline
-	autocmd FileType c,cpp,python,sh,gohtml set relativenumber 
-	autocmd FileType c,cpp,python,sh,gohtml set numberwidth=2
-	autocmd FileType c,cpp,python,sh,gohtml set nowrap
-	autocmd FileType c,cpp,python,sh,gohtml set ruler
-	autocmd FileType c,cpp,python,sh,gohtml inoremap ' ''<ESC>i
+	autocmd FileType c,cpp,python,sh,go,html set laststatus=2
+	autocmd FileType c,cpp,python,sh,go,html set nu "Line Column
+	autocmd FileType c,cpp,python,sh,go,html set foldcolumn=1 "Line Column
+	autocmd	FileType c,cpp,python,sh,go,html set cursorline
+	autocmd FileType c,cpp,python,sh,go,html set relativenumber 
+	autocmd FileType c,cpp,python,sh,go,html set numberwidth=2
+	autocmd FileType c,cpp,python,sh,go,html set nowrap
+	autocmd FileType c,cpp,python,sh,go,html set ruler
+	autocmd FileType c,cpp,python,sh,go,html inoremap ' ''<ESC>i
 	autocmd FileType html,css EmmetInstall
+  	autocmd BufWinLeave * mkview
+	autocmd BufWinEnter * silent! loadview
 augroup END
 
 "PLUGIN
